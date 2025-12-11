@@ -36,7 +36,7 @@ class HttpResponseHeaders
                 "style-src-elem 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.bunny.net; " .
                 "img-src 'self' data:; " .
                 "font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://fonts.bunny.net data:; " .
-                "connect-src 'self' https://ka-f.fontawesome.com; " .
+                "connect-src 'self' https://ka-f.fontawesome.com https://www.google.com https://www.gstatic.com; " .
                 "frame-src 'self' https://www.google.com https://www.gstatic.com; " .
                 "base-uri 'self'; " .
                 "frame-ancestors 'self'; " .
