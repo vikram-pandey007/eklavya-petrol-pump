@@ -80,7 +80,7 @@ class Login extends Component
             session(['user_id' => $user->id]);
 
             if (App::environment(['production', 'uat'])) {
-                Auth::logoutOtherDevices($email); // Logout all other sessions
+                Auth::logoutOtherDevices($this->password); // Logout all other sessions
             }
 
             $this->clearForm(); // clear all form data
