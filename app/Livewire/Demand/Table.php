@@ -176,14 +176,18 @@ final class Table extends PowerGridComponent
         return Demand::query()
             ->leftJoin('users', 'users.id', '=', 'demands.user_id')
             ->select([
-                'demands.id', 'users.party_name as user_party_name',
+                'demands.id',
+                'users.first_name as user_first_name',
                 DB::raw(
                     '(CASE
                                                 WHEN demands.fuel_type = "' . config('constants.demand.fuel_type.key.petrol') . '" THEN  "' . config('constants.demand.fuel_type.value.petrol') . '"
                                                 WHEN demands.fuel_type = "' . config('constants.demand.fuel_type.key.diesel') . '" THEN  "' . config('constants.demand.fuel_type.value.diesel') . '"
                                         ELSE " "
                                         END) AS fuel_type'
-                ), 'demands.vehicle_number', 'demands.fuel_quantity', 'demands.outstanding_quantity',
+                ),
+                'demands.vehicle_number',
+                'demands.fuel_quantity',
+                'demands.outstanding_quantity',
             ])->groupBy('demands.id');
     }
 
@@ -197,7 +201,7 @@ final class Table extends PowerGridComponent
         return PowerGrid::fields()
             ->add('id')
 
-            ->add('created_at_formatted', fn ($row) => Carbon::parse($row->created_at)->format(config('constants.default_datetime_format')));
+            ->add('created_at_formatted', fn($row) => Carbon::parse($row->created_at)->format(config('constants.default_datetime_format')));
     }
 
     public function columns(): array
@@ -236,10 +240,7 @@ final class Table extends PowerGridComponent
     {
         return [
 
-            Filter::select('user_party_name', 'users.party_name')
-                ->dataSource(\App\Models\User::all())
-                ->optionLabel('party_name')
-                ->optionValue('party_name'),
+            Filter::inputText('user_first_name', 'users.first_name')->operators(['contains']),
             Filter::select('fuel_type', 'fuel_type')
                 ->dataSource(Demand::fuel_type())
                 ->optionLabel('label')

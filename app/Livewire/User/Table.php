@@ -240,10 +240,7 @@ final class Table extends PowerGridComponent
     {
         return [
 
-            Filter::select('role_name', 'roles.name')
-                ->dataSource(\App\Models\Role::all())
-                ->optionLabel('name')
-                ->optionValue('name'),
+            Filter::inputText('role_name', 'roles.name')->operators(['contains']),
             Filter::inputText('first_name', 'users.first_name')->operators(['contains']),
             Filter::inputText('last_name', 'users.last_name')->operators(['contains']),
             Filter::inputText('party_name', 'users.party_name')->operators(['contains']),

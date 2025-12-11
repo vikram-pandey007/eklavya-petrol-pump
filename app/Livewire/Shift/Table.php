@@ -144,7 +144,10 @@ final class Table extends PowerGridComponent
         return Shift::query()
             ->leftJoin('users', 'users.id', '=', 'shifts.user_id')
             ->select([
-                'shifts.id', 'users.first_name as user_first_name', 'shifts.start_time', 'shifts.end_time',
+                'shifts.id',
+                'users.first_name as user_first_name',
+                'shifts.start_time',
+                'shifts.end_time',
                 DB::raw(
                     '(CASE
                                                 WHEN shifts.status = "' . config('constants.shift.status.key.ongoing') . '" THEN  "' . config('constants.shift.status.value.ongoing') . '"
@@ -164,9 +167,9 @@ final class Table extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
-            ->add('start_time_formatted', fn ($row) => Carbon::parse($row->start_time)->format(config('constants.default_time_format')))
-            ->add('end_time_formatted', fn ($row) => Carbon::parse($row->end_time)->format(config('constants.default_time_format')))
-            ->add('created_at_formatted', fn ($row) => Carbon::parse($row->created_at)->format(config('constants.default_datetime_format')));
+            ->add('start_time_formatted', fn($row) => Carbon::parse($row->start_time)->format(config('constants.default_time_format')))
+            ->add('end_time_formatted', fn($row) => Carbon::parse($row->end_time)->format(config('constants.default_time_format')))
+            ->add('created_at_formatted', fn($row) => Carbon::parse($row->created_at)->format(config('constants.default_datetime_format')));
     }
 
     public function columns(): array
@@ -201,10 +204,7 @@ final class Table extends PowerGridComponent
     {
         return [
 
-            Filter::select('user_first_name', 'users.first_name')
-                ->dataSource(\App\Models\User::all())
-                ->optionLabel('first_name')
-                ->optionValue('first_name'),
+            Filter::inputText('user_first_name', 'users.first_name')->operators(['contains']),
 
             Filter::select('status', 'status')
                 ->dataSource(Shift::status())

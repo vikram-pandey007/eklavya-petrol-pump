@@ -196,8 +196,6 @@ final class Table extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
-            ->add('month_formatted', fn ($row) => Carbon::parse($row->month)->format(config('constants.default_date_format')))
-            ->add('year_formatted', fn ($row) => Carbon::parse($row->year)->format(config('constants.default_date_format')))
             ->add('created_at_formatted', fn ($row) => Carbon::parse($row->created_at)->format(config('constants.default_datetime_format')));
     }
 
@@ -213,11 +211,11 @@ final class Table extends PowerGridComponent
                 ->sortable()
                 ->searchable(),
 
-            Column::make(__('messages.sanction.listing.month'), 'month_formatted', 'month')
+            Column::make(__('messages.sanction.listing.month'), 'month')
                 ->sortable()
                 ->searchable(),
 
-            Column::make(__('messages.sanction.listing.year'), 'year_formatted', 'year')
+            Column::make(__('messages.sanction.listing.year'), 'year')
                 ->sortable()
                 ->searchable(),
 
