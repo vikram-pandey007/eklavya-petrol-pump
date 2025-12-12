@@ -161,7 +161,9 @@ final class Table extends PowerGridComponent
         $this->showCheckBox();
 
         return [
-
+             PowerGrid::cache()
+                ->ttl(180)                        // 3 minutes
+                ->prefix('user_' . auth()->id . '_'),
             PowerGrid::header(),
 
             PowerGrid::footer()
