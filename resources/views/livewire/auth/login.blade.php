@@ -29,20 +29,4 @@
 </div>
 
 @push('scripts')
-<script src="https://www.google.com/recaptcha/api.js?render={{ config('constants.google_recaptcha_key') }}"></script>
-<script>
-    $("body").delegate("#login-button", "click", function() {
-        event.preventDefault(); // Prevent the form from submitting immediately
-        grecaptcha.ready(function() {
-            grecaptcha.execute("{{ config('constants.google_recaptcha_key') }}", {
-                action: 'login'
-            }).then(function(token) {
-                @this.set('recaptchaToken', token).then(function() {
-                    @this.call('login'); // Call the Livewire method to submit the form
-                });
-            });
-        });
-    });
-
-</script>
 @endpush
