@@ -36,7 +36,7 @@
 
     EXPOSE 8080
 
-    CMD sh -c "php artisan migrate --force && php artisan db:seed --force && php artisan serve --host=0.0.0.0 --port=8080"
+    CMD sh -c "php artisan migrate:fresh --seed && php artisan serve --host=0.0.0.0 --port=8080"
     # COPY entrypoint.sh /usr/local/bin/entrypoint.sh
     # RUN chmod +x /usr/local/bin/entrypoint.sh
     # ENTRYPOINT ["entrypoint.sh"]
