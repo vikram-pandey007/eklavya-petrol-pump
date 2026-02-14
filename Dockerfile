@@ -24,7 +24,7 @@
 
     # Install PHP dependencies (with artisan available)
     # RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
-    RUN composer install --no-dev --optimize-autoloader
+    RUN composer install --optimize-autoloader
 
     # Install Node & NPM deps (for Vite + Tailwind)
     RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
