@@ -12,11 +12,27 @@ return new class() extends Migration
      */
     public function up(): void
     {
-        Schema::create('permission_role', function (Blueprint $table) {
-            $table->unsignedInteger('permission_id')->comment('Permissions table id');
-            $table->unsignedInteger('role_id')->comment('Roles table id');
-        });
+        // Schema::create('permission_role', function (Blueprint $table) {
+        //     $table->unsignedInteger('permission_id')->comment('Permissions table id');
+        //     $table->unsignedInteger('role_id')->comment('Roles table id');
+        // });
 
+        Schema::create('permission_role', function (Blueprint $table) {
+    $table->unsignedInteger('permission_id');
+    $table->unsignedInteger('role_id');
+
+    $table->primary(['permission_id', 'role_id']);
+
+    $table->foreign('permission_id')
+        ->references('id')
+        ->on('permissions')
+        ->onDelete('cascade');
+
+    $table->foreign('role_id')
+        ->references('id')
+        ->on('roles')
+        ->onDelete('cascade');
+});
         DB::table('permission_role')->insert([
             ['permission_id' => 1, 'role_id' => 1],
             ['permission_id' => 2, 'role_id' => 1],
